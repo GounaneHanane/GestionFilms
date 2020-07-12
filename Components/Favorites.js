@@ -26,7 +26,8 @@ class Favorites extends React.Component {
 const styles = StyleSheet.create({
 
   main_container: {
-    flex: 1
+    flex: 1,
+    marginTop:50
   },
   avatar_container: {
     alignItems: 'center'

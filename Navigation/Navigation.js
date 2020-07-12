@@ -7,6 +7,7 @@ import Search from '../Components/Search'
 import FilmDetail from '../Components/FilmDetail'
 import Favorites from '../Components/Favorites'
 import News from '../Components/News'
+import Login from '../Components/Login'
 
 
 const SearchStackNavigator = createStackNavigator({
@@ -20,6 +21,7 @@ const SearchStackNavigator = createStackNavigator({
   FilmDetail: {
     screen: FilmDetail
   },
+
  
 })
 const NewsStackNavigator = createStackNavigator({
@@ -33,6 +35,8 @@ const NewsStackNavigator = createStackNavigator({
     screen: FilmDetail,
   }
 })
+
+ 
 const MoviesTabNavigator = createBottomTabNavigator(
   {
     Search: {
@@ -75,6 +79,20 @@ const MoviesTabNavigator = createBottomTabNavigator(
     }
   }
 )
+const LoginStackNavigator = createStackNavigator({
+  Login: {
+    screen: Login
+  },
+  Home: { 
+    screen : MoviesTabNavigator 
+  }
+}, 
+{
+   headerMode: 'none',
+   defaultNavigationOptions: {
+   gesturesEnabled: false
+}}
+)
 
 const styles = StyleSheet.create({
   icon: {
@@ -83,4 +101,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default createAppContainer(MoviesTabNavigator)
+export default createAppContainer(LoginStackNavigator)
