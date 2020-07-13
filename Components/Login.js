@@ -17,9 +17,7 @@ class Login extends React.Component {
     this.passwordText = ""
   }
   _login() {
-    console.log("hello")
     if(this.usernameText=="Hanane@gmail.com" && this.passwordText=="152634789"){
-        console.log("hello")
         this.props.navigation.navigate("Search")
     }
   }
@@ -51,7 +49,7 @@ class Login extends React.Component {
           
             
             <View style={styles.button}>
-            <Button onPress={() => this._login()} style={styles.buttonText} title="Se connecter"/>
+            <Button onPress={() => this._login()} style={styles.button} title="Se connecter"/>
             </View>
            
         </View>

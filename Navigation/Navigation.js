@@ -8,7 +8,7 @@ import FilmDetail from '../Components/FilmDetail'
 import Favorites from '../Components/Favorites'
 import News from '../Components/News'
 import Login from '../Components/Login'
-
+import Map from '../Components/Map'
 
 const SearchStackNavigator = createStackNavigator({
   Search: {
@@ -65,6 +65,16 @@ const MoviesTabNavigator = createBottomTabNavigator(
         tabBarIcon: () => {
           return <Image
             source={require('../Images/ic_fiber_new.png')}
+            style={styles.icon}/>
+        }
+      }
+    },
+    Maps: {
+      screen: Map,
+      navigationOptions: {
+        tabBarIcon: () => {
+          return <Image
+            source={require('../Images/ic_maps.png')}
             style={styles.icon}/>
         }
       }
