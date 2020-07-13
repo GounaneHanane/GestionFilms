@@ -1,6 +1,7 @@
 import React from 'react';
+import getDirections from 'react-native-google-maps-directions'
 import MapView,{Marker,Polyline} from'react-native-maps';
-import { StyleSheet, View ,ActivityIndicator,Dimensions } from 'react-native';
+import { StyleSheet,TouchableOpacity,Image, View ,ActivityIndicator,Dimensions, Text } from 'react-native';
 import * as Location from 'expo-location'
 import dataCinema from './CinInfo';
 export default class Map extends React.Component {
@@ -47,8 +48,48 @@ export default class Map extends React.Component {
         }
       })
     }
-    
+    handleGetDirections = (latitude,longitude) => {
+        const data = {
+           source: {
+            latitude:  this.state.region.latitude,
+            longitude: this.state.region.longitude
+          },
+          destination: {
+            latitude: latitude,
+            longitude: longitude
+          },
+          params: [
+            {
+              key: "travelmode",
+              value: "driving"        // may be "walking", "bicycling" or "transit" as well
+            },
+            {
+              key: "dir_action",
+              value: "navigate"       // this instantly initializes navigation using the given travel mode
+            }
+          ],
+         
+        }
+     
+        getDirections(data)
+      }
+    _directionButton = (latitude,longitude) => {
+        console.log("button")
+        return {
+            headerRight: <TouchableOpacity
+           style={styles.share_touchable_floatingactionbutton}
+           onPress={() => this.handleGetDirections(latitude,longitude)}>
+           <Image
+             style={styles.share_image}
+             source={require('../Images/ic_share.png')} />
+         </TouchableOpacity>
+        }
+    }
     _showMap = () => {
+     
+
+
+
       if(this.state.mapIsReady){
         return(
           <MapView style={styles.mapStyle} 
@@ -56,13 +97,16 @@ export default class Map extends React.Component {
             showsUserLocation={true}
             onUserLocationChange={locationChangedResult => this.setUserLocation(locationChangedResult.nativeEvent.coordinate)}
           >
+           
             <Marker
               coordinate={{
                 latitude: this.state.region.latitude,
                 longitude: this.state.region.longitude
               }}
               title="Votre emplacement"
-            />
+            >
+               
+            </Marker>
           
             {dataCinema.map(cinema =>(
                  <Marker
@@ -71,7 +115,17 @@ export default class Map extends React.Component {
                   longitude: cinema.conrdinate.longitude
                 }}
                 title={cinema.title}
-               />
+                onCalloutPress={() => this.handleGetDirections(cinema.conrdinate.latitude,cinema.conrdinate.longitude)}
+               >
+                    <MapView.Callout>
+                       <Text>
+                           {cinema.title}
+                       </Text>
+                       <Text>
+                           Get directions
+                       </Text>
+                    </MapView.Callout>
+               </Marker>
             
               ))}
           </MapView>
@@ -115,5 +169,27 @@ export default class Map extends React.Component {
       bottom: 0,
       alignItems: 'center',
       justifyContent: 'center'
-    }
+    },
+    share_touchable_floatingactionbutton: {
+        position: 'absolute',
+        width: 60,
+        height: 60,
+        right: 30,
+        bottom: 30,
+        borderRadius: 30,
+        backgroundColor: '#e91e63',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row',
+     justifyContent: 'center',
+    paddingVertical: 16,
+      
+        top: '50%', //for center align
+        alignSelf: 'flex-end'
+       
+      },
+      share_image: {
+        width: 30,
+        height: 30
+      }
   });
