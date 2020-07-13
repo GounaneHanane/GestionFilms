@@ -6,7 +6,8 @@ import {
   StyleSheet, 
   Image, 
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  Alert
 } from 'react-native';
 
 class Login extends React.Component {
@@ -20,6 +21,7 @@ class Login extends React.Component {
     if(this.usernameText=="Hanane@gmail.com" && this.passwordText=="152634789"){
         this.props.navigation.navigate("Search")
     }
+    else Alert.alert("Le nom d'utilisateur ou le mot de passe est incorrect")
   }
   _usernameTextInputChanged(text) {
     
@@ -48,9 +50,11 @@ class Login extends React.Component {
 
           
             
-            <View style={styles.button}>
-            <Button onPress={() => this._login()} style={styles.button} title="Se connecter"/>
-            </View>
+            <TouchableOpacity
+                            style={styles.button}
+                            onPress={() => this._login()}>
+            <Text style={styles.buttonText}>Se connecter</Text>
+            </TouchableOpacity>
            
         </View>
      
@@ -100,18 +104,6 @@ const styles = StyleSheet.create({
     textAlign:'center',
     width:330,
   },
-  forgotText: {
-    color:'#5B5A5A',
-    fontSize:12,
-    alignItems: 'flex-end',
-    textAlign:'right',
-    width:330,
-  },
-  logoContiner: {
-    height:170,
-    flexDirection: 'column',
-    justifyContent: 'flex-end',
-  },
   welcome: {
     fontSize:25,
     color:'#5B5A5A',
@@ -147,7 +139,8 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color:'white',
-    fontSize:12
+    fontSize:20,
+   
   },
   emailContainer: {
     width:325,

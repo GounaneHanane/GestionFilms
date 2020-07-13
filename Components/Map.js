@@ -73,18 +73,7 @@ export default class Map extends React.Component {
      
         getDirections(data)
       }
-    _directionButton = (latitude,longitude) => {
-        console.log("button")
-        return {
-            headerRight: <TouchableOpacity
-           style={styles.share_touchable_floatingactionbutton}
-           onPress={() => this.handleGetDirections(latitude,longitude)}>
-           <Image
-             style={styles.share_image}
-             source={require('../Images/ic_share.png')} />
-         </TouchableOpacity>
-        }
-    }
+    
     _showMap = () => {
      
 
